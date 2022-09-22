@@ -133,14 +133,14 @@
           </li>
           
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>Usuarios</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="https://adminlte.io/docs/3.1/" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Reportes</p>
             </a>
