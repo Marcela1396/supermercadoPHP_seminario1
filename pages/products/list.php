@@ -1,3 +1,6 @@
+<?php
+    include '../../bd/conexion.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,24 +192,41 @@
             <!-- /.card-header -->
             <!-- form start -->
           </div>
-        
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nombre Producto</th>
-                  <th>Unidades Disponibles</th>
-                  <th>Categoria</th>
-                  <th>Opciones</th>
-                </tr>
-              </thead>
+           <?php
+            $sql = "SELECT * FROM productos join categorias
+            on categoria = idCategoria";
+            $i = 0;
+
+            if ($resultado = $conexion->query($sql)){
+              echo ('
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>ID</th>
+                      <th>Nombre Producto</th>
+                      <th>Unidades</th>
+                      <th>Categoria</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>'
+              );
+
+              while($row = $resultado->fetch_array()){ 
+              $i = $i + 1;
+              $id = $row['idProducto'];
+              $nombre = $row['nombreProducto'];
+              $cantidad = $row['cantidad'];  
+              $categoria = $row['nombreCategoria'];  
+              echo('
               <tbody>
                 <tr>
-                  <td>183</td>
-                  <td>Gaseosa</td>
-                  <td>10</td>
-                  <td>Bebidas</td>
+                  <th scope="row">'.$i.'</th>
+                  <td>'.$id.'</td>
+                  <td>'.$nombre.'</td>
+                  <td>'.$cantidad.'</td>
+                  <td>'.$categoria.'</td>
                   <td>
                      <a href="edit.php" class="btn btn-default">
                         <i class="fas fa-edit"></i>
@@ -216,8 +236,14 @@
                       </a>
                   </td>
                 </tr>
-              </tbody>
-            </table>
+              ');
+            }
+              echo('
+                  </tbody>
+              </table>
+              ');
+          }
+          ?> 
           </div>
         </div>
       </div>

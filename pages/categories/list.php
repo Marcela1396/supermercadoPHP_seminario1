@@ -1,3 +1,6 @@
+<?php
+    include '../../bd/conexion.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,22 +192,38 @@
             <!-- /.card-header -->
             <!-- form start -->
           </div>
-        
-          <div class="card-body table-responsive p-0">
-            <table class="table table-hover text-nowrap">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nombre Categoria</th>
-                  <th>Detalle</th>
-                  <th>Opciones</th>
-                </tr>
-              </thead>
+
+          <?php
+            $sql = "SELECT * FROM categorias";
+            $i = 0;
+
+            if ($resultado = $conexion->query($sql)){
+              echo ('
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>ID</th>
+                      <th>Nombre Categoria</th>
+                      <th>Detalle</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>'
+              );
+
+              while($row = $resultado->fetch_array()){ 
+              $i = $i + 1;
+              $id = $row['idCategoria'];
+              $nombre = $row['nombreCategoria'];
+              $detalle = $row['detalle'];  
+              echo('
               <tbody>
                 <tr>
-                  <td>183</td>
-                  <td>Bebidas</td>
-                  <td>Todas las bebidas como jugos,gaseosas</td>
+                  <th scope="row">'.$i.'</th>
+                  <td>'.$id.'</td>
+                  <td>'.$nombre.'</td>
+                  <td>'.$detalle.'</td>
                   <td>
                      <a href="edit.php" class="btn btn-default">
                         <i class="fas fa-edit"></i>
@@ -214,8 +233,14 @@
                       </a>
                   </td>
                 </tr>
-              </tbody>
-            </table>
+              ');
+            }
+              echo('
+                  </tbody>
+              </table>
+              ');
+          }
+          ?> 
           </div>
         </div>
       </div>
@@ -248,11 +273,10 @@
   <!-- AdminLTE App -->
   <script src="../../dist/js/adminlte.min.js"></script>
 
-  <!-- Page specific script -->
-  <script>
-  $(function () {
-    bsCustomFileInput.init();
-  });
-  </script>
+
+  <?php
+    mysqli_close($conexion);  // Cierra la conexión
+
+  ?>
 </body>
 </html>

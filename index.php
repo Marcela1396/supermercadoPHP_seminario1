@@ -1,3 +1,6 @@
+<?php
+    include 'bd/conexion.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -283,5 +286,10 @@
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+<?php
+    mysqli_close($conexion);  // Cierra la conexión
+
+?>
 </body>
 </html>

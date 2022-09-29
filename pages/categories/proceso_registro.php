@@ -67,32 +67,7 @@
             </div>
           </form>
         </div>
-      </li>
-
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-        </div>
-      </li>
+      </li>      
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -150,7 +125,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../products/list.php" class="nav-link">
+                <a href="list.php" class="nav-link ">
                   <i class="nav-icon fas fa-store"></i>
                   <p>Productos</p>
                 </a>
@@ -160,7 +135,7 @@
           
           <li class="nav-item">
             <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>Usuarios</p>
             </a>
           </li>
@@ -179,6 +154,7 @@
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -193,21 +169,65 @@
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- general form elements -->
-          <div class="card card-success">
-            <div class="card-header">
-              <h3 class="card-title">Operación Éxitosa</h3>
-            </div>
-          </div>
-          <!-- /.card -->
-        </div>
-      </div>      
-    </section>
+    <?php
+      include '../../bd/conexion.php';
+
+      $id = $_POST["id_categoria"];
+      $nombre = $_POST["nombre_categoria"];
+      $detalle = $_POST["detalle_categoria"];
+
+      
+      $sql="INSERT INTO categorias (idCategoria, nombreCategoria, detalle)
+            values('$id', '$nombre', '$detalle')";
+
+      $res = 0;
+      if($conexion->query($sql) === TRUE) {
+        echo('
+          <!-- Main content -->
+          <section class="content">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-success">
+                  <div class="card-header">
+                    <h3 class="card-title"> Operación exitosa </h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->  
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>      
+          </section>
+        ');
+      }
+      else{
+        echo('
+          <!-- Main content -->
+          <section class="content">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title"> Operación fallida </h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->  
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>      
+          </section>
+        ');
+      }
+      mysqli_close($conexion);  // Cierra la conexion
+
+    ?>
+
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -236,7 +256,9 @@
   <script src="../../plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../../dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
 
   <!-- Page specific script -->
+
 </body>
 </html>
