@@ -176,12 +176,14 @@
       $nombre = $_POST["nombre_producto"];
       $unidad = $_POST["unidad_producto"];
       $categoria = $_POST["categoria"];
-
+   
       
-      $sql="INSERT INTO productos (idProducto, nombreProducto, cantidad, categoria)
-            values('$id', '$nombre', '$unidad', '$categoria')";
+      $sql="UPDATE productos SET idProducto = '$id',
+      nombreProducto = '$nombre',
+      cantidad = '$unidad', 
+      categoria = '$categoria'
+      where idProducto = '$id'";
 
-      $res = 0;
       if($conexion->query($sql) === TRUE) {
         echo('
           <!-- Main content -->

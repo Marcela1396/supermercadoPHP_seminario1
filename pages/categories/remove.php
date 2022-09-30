@@ -162,7 +162,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Registro de Productos</h1>
+            <h1 class="m-0">Eliminación de Productos</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -171,17 +171,11 @@
 
     <?php
       include '../../bd/conexion.php';
+      $id = $_GET["id"]; 
 
-      $id = $_POST["id_producto"];
-      $nombre = $_POST["nombre_producto"];
-      $unidad = $_POST["unidad_producto"];
-      $categoria = $_POST["categoria"];
+      $sql = "DELETE FROM categorias WHERE idCategoria ='$id'";
 
-      
-      $sql="INSERT INTO productos (idProducto, nombreProducto, cantidad, categoria)
-            values('$id', '$nombre', '$unidad', '$categoria')";
 
-      $res = 0;
       if($conexion->query($sql) === TRUE) {
         echo('
           <!-- Main content -->

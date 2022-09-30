@@ -197,6 +197,17 @@
     </div>
     <!-- /.content-header -->
 
+     <?php
+       include '../../bd/conexion.php';
+
+       $id = $_GET["id"];
+      
+     $sql = "SELECT * FROM categorias WHERE idCategoria = '$id'";
+     $resultado = $conexion->query($sql);
+     $row = $resultado->fetch_array();
+
+    ?>
+
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -209,21 +220,21 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="proceso_registro.php" method="POST">
+            <form action="proceso_edicion.php" method="POST">
               <div class="card-body">
                 <div class="form-group">
                   <label for="id_categoria">Id</label>
-                  <input type="text" class="form-control" id="id_categoria"  name="id_categoria" placeholder="Ingrese ID">
+                  <input type="text" class="form-control" id="id_categoria"  name="id_categoria" value ="<?php echo $row['idCategoria'] ?>">
                 </div>
                 <div class="form-group">
                   <label for="nombre_categoria">Nombre</label>
-                  <input type="text" class="form-control" id="nombre_categoria" name="nombre_categoria" placeholder="Nombre">
+                  <input type="text" class="form-control" id="nombre_categoria" name="nombre_categoria" value ="<?php echo $row['nombreCategoria'] ?>">
                 </div>
 
                 <div class="form-group">
                   <label for="detalle_categoria">Descripción</label>
                   <input type="text" class="form-control" id="detalle_categoria" name="detalle_categoria" 
-                  placeholder="Detalle">
+                  value ="<?php echo $row['detalle'] ?>">
                 </div> 
               </div>
               <!-- /.card-body -->

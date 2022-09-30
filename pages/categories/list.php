@@ -225,10 +225,10 @@
                   <td>'.$nombre.'</td>
                   <td>'.$detalle.'</td>
                   <td>
-                     <a href="edit.php" class="btn btn-default">
+                     <a href="edit.php?id='. $id.'" class="btn btn-default">
                         <i class="fas fa-edit"></i>
                       </a>
-                      <a href="" class="btn btn-default">
+                      <a href="remove.php?id='. $id.'" class="btn btn-default">
                         <i class="fas fa-trash"></i>
                       </a>
                   </td>

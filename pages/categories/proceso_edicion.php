@@ -172,16 +172,15 @@
     <?php
       include '../../bd/conexion.php';
 
-      $id = $_POST["id_producto"];
-      $nombre = $_POST["nombre_producto"];
-      $unidad = $_POST["unidad_producto"];
-      $categoria = $_POST["categoria"];
-
+      $id = $_POST["id_categoria"];
+      $nombre = $_POST["nombre_categoria"];
+      $detalle = $_POST["detalle_categoria"];
       
-      $sql="INSERT INTO productos (idProducto, nombreProducto, cantidad, categoria)
-            values('$id', '$nombre', '$unidad', '$categoria')";
+      $sql="UPDATE categorias SET idCategoria = '$id',
+      nombreCategoria = '$nombre',
+      detalle = '$detalle' 
+      where idCategoria = '$id'";
 
-      $res = 0;
       if($conexion->query($sql) === TRUE) {
         echo('
           <!-- Main content -->

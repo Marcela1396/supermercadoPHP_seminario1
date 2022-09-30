@@ -200,10 +200,20 @@
 
                 <div class="form-group">
                   <label>Categoría</label>
-                  <select class="form-control">
+                  <select class="form-control" name="categoria">
                     <option disabled selected>Escoja una categoría</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
+                <?php
+                    include '../../bd/conexion.php';
+
+                    $sql = 'SELECT idCategoria, nombreCategoria from categorias';
+                    $resultado = $conexion->query($sql);
+
+                    while ($row = $resultado->fetch_array()) {
+                      echo '<option value='.$row['idCategoria'].'>'.$row['nombreCategoria'].'</option>';
+                    }
+                    mysqli_close($conexion);  // Cierra la conexion
+
+                ?>
                   </select>
                 </div>
 

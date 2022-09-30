@@ -120,13 +120,13 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="../categories/list.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-store"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="list.php" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="nav-icon fas fa-store"></i>
                   <p>Productos</p>
                 </a>
               </li>
@@ -135,7 +135,7 @@
           
           <li class="nav-item">
             <a href="https://adminlte.io/docs/3.1/" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>Usuarios</p>
             </a>
           </li>
@@ -154,7 +154,7 @@
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Edición de productos -->
+   <!-- Registro de productos -->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -169,6 +169,18 @@
     </div>
     <!-- /.content-header -->
 
+    <?php
+       include '../../bd/conexion.php';
+
+       $id = $_GET["id"];
+      
+
+     $sql = "SELECT * FROM productos WHERE idProducto = '$id'";
+     $resultado = $conexion->query($sql);
+     $row = $resultado->fetch_array();
+
+
+    ?>
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -181,29 +193,41 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="proceso_registro.php" method="POST">
+            <form action="./proceso_edicion.php" method="POST">
 
               <div class="card-body">
                 <div class="form-group">
                   <label for="id_producto">Id</label>
-                  <input type="text" class="form-control" id="id_producto"  name="id_producto" placeholder="Ingrese ID">
+                  <input type="text" class="form-control" id="id_producto"  
+                  name="id_producto" value ="<?php echo $row['idProducto'] ?>">
                 </div>
                 <div class="form-group">
                   <label for="nombre_producto">Nombre</label>
-                  <input type="text" class="form-control" id="nombre_categoria" name="nombre_producto" placeholder="Nombre">
+                  <input type="text" class="form-control" id="nombre_categoria" name="nombre_producto" value ="<?php echo $row['nombreProducto'] ?>">
                 </div>
 
                 <div class="form-group">
                   <label for="unidad_producto">Unidades</label>
-                  <input type="number" class="form-control" id="unidad_producto" name="unidad_producto" placeholder="Unidades">
+                  <input type="number" class="form-control" id="unidad_producto" name="unidad_producto" value ="<?php echo $row['cantidad'] ?>">
                 </div>
 
                 <div class="form-group">
                   <label>Categoría</label>
-                  <select class="form-control">
+                  <select class="form-control" name="categoria" 
+                  required value="<?php echo $row['categoria']?>">
                     <option disabled selected>Escoja una categoría</option>
-                    <option>option 2</option>
-                    <option>option 3</option>
+                <?php
+                    include '../../bd/conexion.php';
+
+                    $sql = 'SELECT idCategoria, nombreCategoria from categorias';
+                    $resultado = $conexion->query($sql);
+
+                    while ($row = $resultado->fetch_array()) {
+                      echo '<option value='.$row['idCategoria'].'>'.$row['nombreCategoria'].'</option>';
+                    }
+                    mysqli_close($conexion);  // Cierra la conexion
+
+                ?>
                   </select>
                 </div>
 
@@ -211,9 +235,8 @@
               <!-- /.card-body -->
 
               <div class="card-footer">
-                <button type="submit" class="btn btn-success">
-                  Actualizar
-                </button>
+                <input  type="submit" class="btn btn-success" value="       Actualizar">
+                </input>
               </div>
             </form>
           </div>
@@ -252,6 +275,10 @@
   <!-- AdminLTE for demo purposes -->
 
   <!-- Page specific script -->
-
+  <script>
+  $(function () {
+    bsCustomFileInput.init();
+  });
+  </script>
 </body>
 </html>
